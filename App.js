@@ -21,7 +21,6 @@ class App extends Component {
       <View>
         <Header headerText='Authentication' />
         <LoginForm />
-        {console.log('test')}
       </View>
     );
   }

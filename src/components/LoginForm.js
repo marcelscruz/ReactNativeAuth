@@ -9,11 +9,14 @@ class LoginForm extends Component {
   onButtonPress() {
     const { email, password } = this.state;
 
+    this.setState({ error: '' });
 
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
         firebase.auth().createUserWithEmailAndPassword(email, password)
-          .catch(() => {
+          .catch((err) => {
+            console.log(err);
             this.setState({ error: 'Authentication Failed.' });
           });
       });
@@ -44,15 +47,16 @@ class LoginForm extends Component {
           />
         </CardSection>
 
+        <Text style={styles.errorTextStyle}>
+          {this.state.error}
+        </Text>
+
         <CardSection>
           <Button onPress={this.onButtonPress.bind(this)}>
             Log in
           </Button>
         </CardSection>
 
-        <Text style={styles.errorTextStyle}>
-          {this.state.error}
-        </Text>
       </Card>
     );
   }
